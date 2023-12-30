@@ -63,7 +63,7 @@ export const BookDetail = () => {
 
           <div className={css["user-profile"]}>
             {BOOK_DETAILS_TO_SHOW.map(({ label, value }) => (
-              <div className={css["input-wrapper"]}>
+              <div className={css["input-wrapper"]} key={value}>
                 <div className={css.label}>{label}</div>
                 <span>{bookDetails[value]}</span>
               </div>

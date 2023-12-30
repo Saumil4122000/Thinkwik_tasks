@@ -7,10 +7,14 @@ export type AuthContextProps = {
   isLoading?: boolean;
   login: () => void;
   logout: () => void;
+  setUserDetail: (userDetails: RegistrationType) => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
+  isLoading: false,
+  isAuthenticated: false,
+  setUserDetail: () => undefined,
   login: () => undefined,
   logout: () => undefined,
 });

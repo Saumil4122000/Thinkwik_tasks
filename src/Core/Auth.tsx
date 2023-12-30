@@ -2,22 +2,21 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { AuthProvider } from "./AuthContext";
 import { RegistrationType } from "../Types/User.type";
 import { USER_STORAGE_KEY } from "./StorageConstant";
-import { useNavigate } from "react-router-dom";
 
 export const Auth = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<RegistrationType | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
-  const removeCredentials = () => {
-    navigate("/login");
+  const removeCredentials = useCallback(() => {
     sessionStorage.removeItem("isLoggedIn");
     setIsAuthenticated(false);
-  };
+  }, [setIsAuthenticated]);
 
   const getUserDetails = useCallback(() => {
     try {
+      setIsLoading(true);
+
       // Getting the UserDetails from local storage
       const loggedUser = localStorage.getItem(USER_STORAGE_KEY);
 
@@ -31,12 +30,18 @@ export const Auth = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.error(error);
       removeCredentials();
+    } finally {
+      setIsLoading(false);
     }
-  }, [setUser, setIsAuthenticated]);
+  }, [removeCredentials, setIsLoading, setIsAuthenticated, setUser]);
 
   const logout = useCallback(() => {
     removeCredentials();
-  }, [setIsAuthenticated]);
+  }, [removeCredentials]);
+
+  const setUserDetail = (userState: RegistrationType) => {
+    setUser({...userState});
+  };
 
   const login = useCallback(() => {
     sessionStorage.setItem("isLoggedIn", "LOGGED_IN");
@@ -51,11 +56,13 @@ export const Auth = ({ children }: { children: React.ReactNode }) => {
   const values = useMemo(() => {
     return {
       user,
+      isLoading,
       isAuthenticated,
       login,
       logout,
+      setUserDetail
     };
-  }, [user, isAuthenticated, login, logout]);
+  }, [user, isLoading, isAuthenticated, login, logout]);
 
   return <AuthProvider value={values}>{children}</AuthProvider>;
 };

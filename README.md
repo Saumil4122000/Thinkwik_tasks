@@ -10,7 +10,7 @@ Follow the steps below to set up the library management system in your local env
 
 Make sure you have the following tools installed on your machine:
 
-- [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/) [Use latest version if not work or getting error related to vite module]
 - [npm](https://www.npmjs.com/)
 
 ### Installation
@@ -18,13 +18,13 @@ Make sure you have the following tools installed on your machine:
 1. Clone the repository:
 
     ```bash
-    git clone [repo-url]
+    git clone git@github.com:Saumil4122000/Thinkwik_tasks.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd your-vite-project
+    cd Thinkwik_tasks
     ```
 
 3. Install dependencies:

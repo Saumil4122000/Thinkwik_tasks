@@ -14,9 +14,9 @@ import { useNavigate } from "react-router-dom";
 import { BookModal } from "../Components/BookModal/BookModal";
 import { useBooks } from "../Core/BookContext";
 import { getComparator } from "../Shared/helper";
+import { BookType } from "../Types/Book.type";
 
 export const SortAndFilterTable = () => {
-
   const navigate = useNavigate();
 
   const { bookList } = useBooks();
@@ -38,7 +38,7 @@ export const SortAndFilterTable = () => {
         field: "id",
         headerName: "ID",
         width: 70,
-        renderCell: (dataValue: GridRenderCellParams<any>) => {
+        renderCell: (dataValue: GridRenderCellParams<BookType>) => {
           return (
             <IconButton
               className={css.iconButton}
@@ -108,7 +108,7 @@ export const SortAndFilterTable = () => {
         disableColumnMenu: true,
       },
     ];
-  }, [bookList]);
+  }, [navigate]);
 
   const visibleRows = useMemo(() => {
     const order = sortModel.length ? sortModel[0].sort : "asc";
@@ -155,6 +155,7 @@ export const SortAndFilterTable = () => {
               outline: "none !important",
             },
           }}
+          disableRowSelectionOnClick
           rowCount={bookList.length}
           pageSizeOptions={[5]}
           paginationModel={paginationModel}

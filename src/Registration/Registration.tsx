@@ -16,6 +16,7 @@ import {
   PASSWORD_ENCRYPTION_KEY,
   USER_STORAGE_KEY,
 } from "../Core/StorageConstant";
+import { useAuth } from "../Core/AuthContext";
 
 const initialValues = {
   email: "",
@@ -34,6 +35,8 @@ export const Registration = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showErrorToast, setShowErrorToast] = useState<ToastType | null>(null);
+
+  const { setUserDetail } = useAuth();
 
   const saveUserDetails = async (values: RegistrationType) => {
     try {
@@ -64,6 +67,7 @@ export const Registration = () => {
           USER_STORAGE_KEY,
           JSON.stringify(updatedUserDetails)
         );
+        setUserDetail(updatedUserDetails)
       }
       navigate("/login");
     } catch (error) {

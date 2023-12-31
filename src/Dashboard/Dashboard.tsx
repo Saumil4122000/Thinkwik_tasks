@@ -1,6 +1,7 @@
 import { useAuth } from "../Core/AuthContext";
 import css from "./Dashboard.module.css";
 import { SortAndFilterTable } from "./Table";
+import UserLogo from "../../assets/icons/book-list.svg?react";
 
 export const Dashboard = () => {
   const { user } = useAuth();
@@ -17,11 +18,7 @@ export const Dashboard = () => {
         </div>
 
         <div className={css["book-image"]}>
-          <img
-            src="./../assets/icons/book-list.svg"
-            alt="book image"
-            className="book-img"
-          />
+          <UserLogo className={css["book-svg"]} />
         </div>
       </div>
       <SortAndFilterTable />

@@ -1,6 +1,8 @@
 import { useAuth } from "../Core/AuthContext";
 import css from "./About.module.css";
 
+import UserLogo from "../../assets/icons/user.svg?react";
+
 export const About = () => {
   const { user } = useAuth();
 
@@ -11,7 +13,7 @@ export const About = () => {
       <h3>User Profile</h3>
 
       <div className={css["user-profile-container"]}>
-        <img src="./../assets/icons/user.svg" className={css["user-image"]} />
+        <UserLogo className={css["user-image"]} />
 
         <div className={css["user-profile"]}>
           <div className={css["input-wrapper"]}>

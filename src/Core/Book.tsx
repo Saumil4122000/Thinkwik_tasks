@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { BookProvider } from "./BookContext";
 import { BOOK_STORAGE_KEY } from "./StorageConstant";
 
@@ -13,36 +13,45 @@ export const Book = ({ children }: { children: React.ReactNode }) => {
    *
    * @param newBook: New Book to save
    */
-  const addBookToList = (newBook: BookType) => {
-    // appending the newBook to existing book list
-    const newBooksList = [...booksList, newBook];
-    setBooksList(newBooksList);
-    localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(newBooksList));
-  };
+  const addBookToList = useCallback(
+    (newBook: BookType) => {
+      // appending the newBook to existing book list
+      const newBooksList = [...booksList, newBook];
+      setBooksList(newBooksList);
+      localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(newBooksList));
+    },
+    [setBooksList, booksList]
+  );
 
   /**
    *
    * @param id: Id for the book to delete
    */
-  const deleteBookToList = (id: string) => {
-    const remainingBookList = booksList.filter((book) => book.id !== id);
-    setBooksList(remainingBookList);
-    localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(remainingBookList));
-  };
+  const deleteBookToList = useCallback(
+    (id: string) => {
+      const remainingBookList = booksList.filter((book) => book.id !== id);
+      setBooksList(remainingBookList);
+      localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(remainingBookList));
+    },
+    [setBooksList, booksList]
+  );
 
   /**
    *
    * @param updatedBookData: Updated Book object
    */
-  const updateBookToList = (updatedBookData: BookType) => {
-    const booksCopy = [...booksList];
-    const bookIndexToUpdate = booksList.findIndex(
-      (book) => book.id === updatedBookData.id
-    );
-    booksCopy[bookIndexToUpdate] = updatedBookData;
-    setBooksList(booksCopy);
-    localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(booksCopy));
-  };
+  const updateBookToList = useCallback(
+    (updatedBookData: BookType) => {
+      const booksCopy = [...booksList];
+      const bookIndexToUpdate = booksList.findIndex(
+        (book) => book.id === updatedBookData.id
+      );
+      booksCopy[bookIndexToUpdate] = updatedBookData;
+      setBooksList(booksCopy);
+      localStorage.setItem(BOOK_STORAGE_KEY, JSON.stringify(booksCopy));
+    },
+    [setBooksList, booksList]
+  );
 
   const values = useMemo(() => {
     return {

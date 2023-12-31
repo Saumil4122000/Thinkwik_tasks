@@ -41,8 +41,10 @@ export const BookDetail = () => {
   const deleteBook = async () => {
     try {
       setIsDeleting(true);
+      // Added 4s delay to show loader
       await new Promise((resolve) => setTimeout(resolve, 4000));
       if (id) {
+        // if id exists then delete the book and navigate to dashboard page
         deleteBookToList(id);
         navigate("/");
       }

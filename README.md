@@ -10,7 +10,7 @@ This readme includes steps to setup the book management system in the local env.
 
 Follow the steps below to set up the library management system in your local environment.
 
-### Prerequisites
+### Prerequisites. 
 
 Make sure you have the following tools installed on your machine:
 
